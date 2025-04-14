@@ -10,16 +10,22 @@ public class ConnexionJpa {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("livres");
         EntityManager em = emf.createEntityManager();
 
-        // Rechercher un livre avec l'id 1
-        Livre livre = em.find(Livre.class, 1);
+        // Rechercher un emprunt avec ID = 1
+        Emprunt emprunt = em.find(Emprunt.class, 1);
 
-        if (livre != null) {
-            System.out.println("Livre trouvé : " + livre);
+        if (emprunt != null) {
+            System.out.println("Emprunt trouvé : " + emprunt);
+            System.out.println("Livres associés à l'emprunt :");
+
+            for (Livre livre : emprunt.getLivres()) {
+                System.out.println(" - " + livre);
+            }
+
         } else {
-            System.out.println("Aucun livre trouvé avec l'id 1");
+            System.out.println("Aucun emprunt trouvé avec l'id 1");
         }
 
         em.close();
         emf.close();
     }
-}
+    }
